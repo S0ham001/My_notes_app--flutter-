@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 51, 177, 89)),
       ),
-      home: NoteScreen(),
+      home: NotesScreen(),
     );
   }
 }

@@ -29,6 +29,7 @@ class _NoteScreenState extends State<NoteScreen> {
             decoration: InputDecoration(
               hintText: "enter title",
               labelText: "Title",
+
               ),
           ),
           TextField(
@@ -59,11 +60,26 @@ class _NoteScreenState extends State<NoteScreen> {
             itemCount: notes.length,
             itemBuilder: 
               (context, index) => ListTile(
-                title: Text("${notes[index].title}"),
-                subtitle: Text("${notes[index].description}"),
-                trailing: IconButton(
-                  onPressed: (){},
-                  icon: Icon(Icons.delete),
+                title: Text(notes[index].title),
+                subtitle: Text(notes[index].description),
+                trailing: SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.25,
+                  child: Row(
+                    children: [
+                      IconButton(onPressed:(){
+                        titleTxtCntrl.text = notes[index].title;
+                        descTxtCntrl.text = notes[index].description;
+                        notes.removeAt(index);
+                        setState(() {});
+                      }, icon: Icon(Icons.edit)),
+                      IconButton( onPressed: (){
+                    notes.removeAt(index);
+                    setState(() {});
+                  },
+                  icon: Icon(Icons.delete),),
+
+                    ],
+                  ),
                 ),
               ),
             ),

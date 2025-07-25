@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notes_app/models/note.dart';
 
 class NoteScreen extends StatefulWidget {
   const NoteScreen({super.key});
@@ -10,6 +11,9 @@ class NoteScreen extends StatefulWidget {
 class _NoteScreenState extends State<NoteScreen> {
   TextEditingController titleTxtCntrl = TextEditingController();
   TextEditingController descTxtCntrl = TextEditingController();
+  List<Note> notes = [];
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +38,36 @@ class _NoteScreenState extends State<NoteScreen> {
               labelText: "description",
               ),
           ),
-
+          ElevatedButton(onPressed: () {
+            // add logic
+            if ( titleTxtCntrl.text.isNotEmpty && descTxtCntrl.text.isNotEmpty){
+              notes.add(
+                Note(
+                  id: DateTime.now().toIso8601String(),
+                  title: titleTxtCntrl.text,
+                  description: descTxtCntrl.text,
+                ),
+              );
+              titleTxtCntrl.clear();
+              descTxtCntrl.clear();
+              setState(() {});
+            } else {}
+          }, 
+          child: Text("Add")),
+          //Display
+          Expanded(child: ListView.builder(
+            itemCount: notes.length,
+            itemBuilder: 
+              (context, index) => ListTile(
+                title: Text("${notes[index].title}"),
+                subtitle: Text("${notes[index].description}"),
+                trailing: IconButton(
+                  onPressed: (){},
+                  icon: Icon(Icons.delete),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
